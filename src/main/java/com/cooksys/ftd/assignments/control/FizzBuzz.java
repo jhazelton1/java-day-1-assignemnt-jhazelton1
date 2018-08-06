@@ -1,5 +1,8 @@
 package com.cooksys.ftd.assignments.control;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -26,7 +29,10 @@ public class FizzBuzz {
      * @throws IllegalArgumentException if b is zero
      */
     public static boolean divides(int a, int b) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (b == 0) {
+    		throw new IllegalArgumentException();
+    	}
+        return a % b == 0;
     }
 
     /**
@@ -41,7 +47,20 @@ public class FizzBuzz {
      * @return a message according to the format above, or null if n is not divisible by either 3 or 5
      */
     public static String message(int n) {
-        throw new NotImplementedException();
+        if (n < 3) {
+        	return null;
+        }
+    	String m = "";
+    	if (divides(n, 3) && divides(n, 5)) {
+    		m += n + ": FizzBuzz";
+    	} else if (divides(n, 3)) {
+    		m += n + ": Fizz";
+    	} else if (divides(n, 5)) {
+    		m += n + ": Buzz";
+    	} else {
+    		m = null;
+    	}
+    	return m;
     }
 
     /**
@@ -55,7 +74,20 @@ public class FizzBuzz {
      * @throws IllegalArgumentException if the given end is less than the given start
      */
     public static String[] messages(int start, int end) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	
+    	if (end < start) {
+    		throw new IllegalArgumentException();
+    	} 
+    	
+    	ArrayList<String> messages = new ArrayList<String>();
+    	
+    	for(int i = start; i < end; i++) {
+    		if (message(i) != null) {
+    			messages.add(message(i));
+    		}
+    	}
+    	return messages.toArray(new String[messages.size()]);
+    	
     }
 
     /**
@@ -63,7 +95,14 @@ public class FizzBuzz {
      * the relevant messages to sysout
      */
     public static void main(String[] args) {
-        throw new NotImplementedException();
+    	System.out.println(Arrays.toString(messages(3, 3)));
+//        System.out.println(message(1));
+//        System.out.println(message(2));
+        System.out.println(message(3));
+//        System.out.println(message(4));
+//        System.out.println(message(5));
+//        System.out.println(divides(4,5));
+//        System.out.println(4 % 5);
     }
 
 }

@@ -1,5 +1,8 @@
 package com.cooksys.ftd.assignments.control;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
@@ -24,7 +27,11 @@ public class Fibonacci {
      * @throws IllegalArgumentException if the given index is less than zero
      */
     public static int atIndex(int i) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (i < 0) {
+    		throw new IllegalArgumentException();
+    	}
+        
+    	return fibonacci(i + 1)[i];
     }
 
     /**
@@ -38,7 +45,11 @@ public class Fibonacci {
      *                                  given end is less than the given start
      */
     public static int[] slice(int start, int end) throws IllegalArgumentException {
-        throw new NotImplementedException();
+    	if (start < 0 || end < 0 || end < start) {
+    		throw new IllegalArgumentException();
+    	}
+    	int[] fibArray = fibonacci(end);
+        return Arrays.copyOfRange(fibArray, start, end);
     }
 
     /**
@@ -49,6 +60,33 @@ public class Fibonacci {
      * @throws IllegalArgumentException if the given count is negative
      */
     public static int[] fibonacci(int count) throws IllegalArgumentException {
-        throw new NotImplementedException();
+
+    	if (count < 0) {
+    		throw new IllegalArgumentException();
+    	}
+    	
+    	if (count == 0) {
+    		return new int[0];
+    	}
+    	
+    	if (count == 1) {
+    		return new int[]{1};
+    	}
+    	
+    	if (count == 2) {
+    		return new int[]{1, 1};
+    	}
+    	
+        ArrayList<Integer> fibList = new ArrayList<Integer>();
+        fibList.add(1);
+        fibList.add(1);
+        
+        for (int i = 2; i < count; i++) {
+        	fibList.add(fibList.get(i - 1) + fibList.get(i - 2));
+        }
+        
+        int[] fibArray = fibList.stream().mapToInt(i -> i).toArray();
+        return fibArray;
     }
+    
 }
